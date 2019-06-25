@@ -236,7 +236,7 @@ Returns the size of the legal action set. Not to be confused with `getMinimalAct
 
 See also: [`getLegalActionSize`](@ref)
 """
-getLegalActionSize(ale::ALEPtr) =
+getLegalActionSize(ale::ALEPtr)::Int =
     ccall((:getLegalActionSize, libale_c), Cint, (ALEPtr,), ale)
 
 """
@@ -265,7 +265,7 @@ Returns the size of the minimal action set required to play the game. Not to be 
 
 See also: [`getLegalActionSize`](@ref)
 """
-getMinimalActionSize(ale::ALEPtr) =
+getMinimalActionSize(ale::ALEPtr)::Int =
     ccall((:getMinimalActionSize, libale_c), Cint, (ALEPtr,), ale)
 
 """
