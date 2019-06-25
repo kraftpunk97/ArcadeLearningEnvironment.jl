@@ -218,9 +218,9 @@ Returns the vector of the legal set of actions needed the play the game. Not to 
 See also: [`getMinimalActionSet`](@ref)
 """
 function getLegalActionSet(ale::ALEPtr)
-    actions = Int[]
+    actions = Cint[]
     _getLegalActionSet!(ale, actions)
-    actions
+    Int.(actions)
 end
 
 function _getLegalActionSet!(ale::ALEPtr, actions::Vector{Cint})
@@ -247,9 +247,9 @@ Returns the set of actions that actually affect the game. Not to be confused wit
 See also: [`getLegalActionSet`](@ref)
 """
 function getMinimalActionSet(ale::ALEPtr)
-    actions = Int[]
+    actions = Cint[]
     _getMinimalActionSet!(ale, actions)
-    actions
+    Int.(actions)
 end
 
 function _getMinimalActionSet!(ale::ALEPtr, actions::Vector{Cint})
