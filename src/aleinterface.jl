@@ -191,7 +191,7 @@ Applies an action to the game and returns the reward. It is the user's
 responsibility to check if the game has ended and reset when neccessary -
 this function will keep pushing buttons on the game over screen.
 """
-act(ale::ALEPtr, action::Integer) =
+act(ale::ALEPtr, action::Integer)::Int =
     ccall((:act, libale_c), Cint, (ALEPtr, Cint), ale, Cint(action))
 
 """
@@ -218,7 +218,7 @@ Returns the vector of the legal set of actions needed the play the game. Not to 
 See also: [`getMinimalActionSet`](@ref)
 """
 function getLegalActionSet(ale::ALEPtr)
-    actions = Cint[]
+    actions = Int[]
     _getLegalActionSet!(ale, actions)
     actions
 end
@@ -247,7 +247,7 @@ Returns the set of actions that actually affect the game. Not to be confused wit
 See also: [`getLegalActionSet`](@ref)
 """
 function getMinimalActionSet(ale::ALEPtr)
-    actions = Cint[]
+    actions = Int[]
     _getMinimalActionSet!(ale, actions)
     actions
 end
@@ -313,9 +313,9 @@ function getRAM(ale::ALEPtr)
 end
 
 # Screen function utilities
-getScreenWidth(ale::ALEPtr) =
+getScreenWidth(ale::ALEPtr)::Int =
     ccall((:getScreenWidth, libale_c), Cint, (ALEPtr,), ale)
-getScreenHeight(ale::ALEPtr) =
+getScreenHeight(ale::ALEPtr)::Int =
     ccall((:getScreenHeight, libale_c), Cint, (ALEPtr,), ale)
 getScreen!(ale::ALEPtr, screen_data::Vector{Cuchar}) =
     ccall((:getScreen, libale_c), Cvoid, (ALEPtr, Ptr{Cuchar}), ale, screen_data)
