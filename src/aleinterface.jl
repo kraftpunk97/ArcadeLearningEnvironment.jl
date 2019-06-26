@@ -436,7 +436,7 @@ saveScreenPNG(ale::ALEPtr, filename::String) = ccall((:saveScreenPNG, libale_c),
 
 function encodeState(state::ALEStatePtr)
     len = encodeStateLen(state)
-    buf = Array{Cchar}(len)
+    buf = Array{Cchar}(undef, len)
     ccall((:encodeState, libale_c), Cvoid, (ALEStatePtr, Ptr{Cchar}, Cint),
         state, buf, len)
     buf
