@@ -398,8 +398,8 @@ repeated calls to restoreState() in the stochastic controls settinig will not le
 
 See also: [`restoreSystemState`](@ref)
 """
-restoreState(ale::ALEPtr, state::ALEStatePtr) =
-    ccall((:restoreState, libale_c), Cvoid, (ALEPtr, ALEStatePtr), ale, state)
+restoreState(ale::ALEPtr, state_ref::ALEStatePtr) =
+    ccall((:restoreState, libale_c), Cvoid, (ALEPtr, ALEStatePtr), ale, state_ref)
 
 """
     cloneSystemState(ale_instance::ALEPtr)
@@ -415,9 +415,9 @@ cloneSystemState(ale::ALEPtr) = ccall((:cloneSystemState, libale_c),
 
 Reverse operation of [`cloneSystemState`](@ref).
 """
-restoreSystemState(ale::ALEPtr, state::ALEStatePtr) =
+restoreSystemState(ale::ALEPtr, state_ref::ALEStatePtr) =
     ccall((:restoreSystemState, libale_c), Cvoid, (ALEPtr, ALEStatePtr),
-        ale, state)
+        ale, state_ref)
 deleteState(state::ALEStatePtr) = ccall((:deleteState, libale_c), Cvoid,
     (ALEStatePtr,), state)
 
