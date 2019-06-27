@@ -40,15 +40,32 @@ end
         loadROM(ale, string(split(rom, ".")[1]))
         actionset = getLegalActionSet(ale)
         reset_game(ale)
+
         for i in 1:1000
             act(ale, rand(actionset))
             game_over(ale) && reset_game(ale)
         end
+
         width = getScreenWidth(ale)
         height = getScreenHeight(ale)
         getScreenGrayscale(ale)
         getScreenRGB(ale)
         getScreen(ale)
+
+
+        state_ref = cloneState(ale)
+        state = encodeState(state_ref)
+        deleteState(state_ref)
+        state_ref = decodeState(state)
+        restoreState(ale, state_ref)
+        deleteState(state_ref)
+        state_ref = cloneSystemState(ale)
+        state = encodeState(state_ref)
+        state_ref = decodeState(state)
+        restoreSystemState(ale, state_ref)
+        deleteState(state_ref)
+
+
         @test true
         ALE_del(ale)
     end
