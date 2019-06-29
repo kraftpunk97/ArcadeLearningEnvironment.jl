@@ -52,21 +52,25 @@ end
         getScreenRGB(ale)
         getScreen(ale)
 
+        @test true
 
         state_ref = cloneState(ale)
-        state = encodeState(state_ref)
+        pre_restore_state = encodeState(state_ref)
         deleteState(state_ref)
         state_ref = decodeState(state)
         restoreState(ale, state_ref)
+        post_restore_state = ale |> cloneState |> encodeState
+        @test pre_restore_state == post_restore_state
         deleteState(state_ref)
+
         state_ref = cloneSystemState(ale)
-        state = encodeState(state_ref)
+        pre_restore_state = encodeState(state_ref)
         state_ref = decodeState(state)
         restoreSystemState(ale, state_ref)
+        post_restore_state = ale |> cloneSystemState |> encodeState
+        @test post_restore_state == pre_restore_state
         deleteState(state_ref)
 
-
-        @test true
         ALE_del(ale)
     end
 end
