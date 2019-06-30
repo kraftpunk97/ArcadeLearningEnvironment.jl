@@ -442,7 +442,7 @@ end
 
 function encodeState!(state::ALEStatePtr, buf::Array{Cchar})
     ccall((:encodeState, libale_c), Cvoid, (ALEStatePtr, Ptr{Cchar}, Cint),
-        state, buf, len)
+        state, buf, length(buf))
     buf
 end
 
