@@ -57,7 +57,7 @@ end
         state_ref = cloneState(ale)
         pre_restore_state = encodeState(state_ref)
         deleteState(state_ref)
-        state_ref = decodeState(state)
+        state_ref = decodeState(pre_restore_state)
         restoreState(ale, state_ref)
         post_restore_state = ale |> cloneState |> encodeState
         @test pre_restore_state == post_restore_state
@@ -65,7 +65,7 @@ end
 
         state_ref = cloneSystemState(ale)
         pre_restore_state = encodeState(state_ref)
-        state_ref = decodeState(state)
+        state_ref = decodeState(pre_restore_state)
         restoreSystemState(ale, state_ref)
         post_restore_state = ale |> cloneSystemState |> encodeState
         @test post_restore_state == pre_restore_state
